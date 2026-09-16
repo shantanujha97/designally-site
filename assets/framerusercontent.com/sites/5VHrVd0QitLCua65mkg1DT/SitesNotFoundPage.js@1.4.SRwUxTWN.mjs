@@ -1,1 +1,1 @@
-import{i as e,n as t,r as n}from"./shared-lib.B8aJ2yUo.mjs";t();export{e as __FramerMetadata__,n as default};
+import{i as e,n as t,r as n}from"./shared-lib.B8aJ2yUo-v2c7e8bf57.mjs";t();export{e as __FramerMetadata__,n as default};
