@@ -1,1 +1,1 @@
-import{a as e,c as t,o as n,s as r}from"./shared-lib.B8aJ2yUo-cd77a963.mjs";r();export{e as __FramerMetadata__,n as getSnippets,t as snippetsSorting};
+import{a as e,c as t,o as n,s as r}from"./shared-lib.B8aJ2yUo-c88d380e.mjs";r();export{e as __FramerMetadata__,n as getSnippets,t as snippetsSorting};
