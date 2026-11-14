@@ -17,8 +17,3 @@
 
 /* ---- footer icon row (one picture): Telegram glyph removed, picture narrowed to match ---- */
 .framer-15l1ydp{width:114px!important}
-
-/* Inactive case buttons (Strata, GenieDex): "Case Study Locked" -> "Coming Soon" on hover */
-.framer-VVWcD.framer-v-1gpqr80 .framer-1us5yqq p.framer-text{font-size:0!important;white-space:nowrap}
-.framer-VVWcD.framer-v-1gpqr80 .framer-1us5yqq p.framer-text::before{content:"Case Study Locked";font-size:16px;letter-spacing:-0.64px;line-height:19.2px}
-.framer-VVWcD.framer-v-1gpqr80:hover .framer-1us5yqq p.framer-text::before{content:"Coming Soon"}
