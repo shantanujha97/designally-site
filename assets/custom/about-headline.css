@@ -2,33 +2,33 @@
 .framer-v126zp{display:block!important}
 .framer-1ro17ur,.framer-onul9j,.framer-6653e7,
 .framer-tyz7qv,.framer-1tch5pl,.framer-t6dk8r,.framer-14tveid,.framer-pzvwyr,.framer-1oc9264{display:inline!important}
-.framer-v126zp h1.framer-text{display:inline!important}
-.framer-v126zp h1.framer-text::after{content:" "}
-.framer-t6dk8r h1.framer-text::after{content:none}
+.framer-v126zp p.framer-text{display:inline!important}
+.framer-v126zp p.framer-text::after{content:" "}
+.framer-t6dk8r p.framer-text::after{content:none}
 .framer-fk9jnq-container,.framer-4qrzgj-container,.framer-5kkw1k-container{display:none!important}
 
 @media (max-width:809.98px){
   .framer-1bbol5i{display:block!important}
   .framer-1iem2ea,.framer-1jmhmo4,.framer-1h2wj79,.framer-11r4vn,.framer-m07v7i,.framer-lvt7zw,
   .framer-17intab,.framer-1ofp3al,.framer-1w43no2,.framer-28ssib,.framer-xxrdja,.framer-1yjkfb2{display:inline!important}
-  .framer-1bbol5i h1.framer-text{display:inline!important}
-  .framer-1bbol5i h1.framer-text::after{content:" "}
-  .framer-1ofp3al h1.framer-text::after{content:". "}
-  .framer-1yjkfb2 h1.framer-text::after{content:"."}
+  .framer-1bbol5i p.framer-text{display:inline!important}
+  .framer-1bbol5i p.framer-text::after{content:" "}
+  .framer-1ofp3al p.framer-text::after{content:". "}
+  .framer-1yjkfb2 p.framer-text::after{content:"."}
   .framer-10dwau-container,.framer-1ly2uwe-container,.framer-16c7qva-container{display:none!important}
 }
 .framer-v126zp,.framer-v126zp *,.framer-1bbol5i,.framer-1bbol5i *{white-space:normal!important}
-.framer-v126zp h1.framer-text span:not(.framer-text):has(> span),.framer-1bbol5i h1.framer-text span:not(.framer-text):has(> span){white-space:nowrap!important}
+.framer-v126zp p.framer-text span:not(.framer-text):has(> span),.framer-1bbol5i p.framer-text span:not(.framer-text):has(> span){white-space:nowrap!important}
 /* keep "shipping" in one piece (it spans two colours) */
-.framer-v126zp .framer-t6dk8r h1.framer-text span.framer-text,
-.framer-v126zp .framer-t6dk8r h1.framer-text span.framer-text *,
-.framer-1bbol5i .framer-1ofp3al h1.framer-text span.framer-text,
-.framer-1bbol5i .framer-1ofp3al h1.framer-text span.framer-text *{white-space:nowrap!important}
+.framer-v126zp .framer-t6dk8r p.framer-text span.framer-text,
+.framer-v126zp .framer-t6dk8r p.framer-text span.framer-text *,
+.framer-1bbol5i .framer-1ofp3al p.framer-text span.framer-text,
+.framer-1bbol5i .framer-1ofp3al p.framer-text span.framer-text *{white-space:nowrap!important}
 /* tighter line spacing for the merged sentence (was 130%; now 106%) */
-.framer-v126zp h1.framer-text,.framer-1bbol5i h1.framer-text{--framer-line-height:1.064!important;line-height:1.064!important}
+.framer-v126zp p.framer-text,.framer-1bbol5i p.framer-text{--framer-line-height:1.064!important;line-height:1.064!important}
 /* full stop after "fast" takes the same grey as "fast" */
-.framer-14tveid h1.framer-text > span.framer-text:first-child{--framer-text-color:rgb(138,138,138)!important;color:rgb(138,138,138)!important}
-.framer-14tveid h1.framer-text > span.framer-text:first-child *{color:rgb(138,138,138)!important}
+.framer-14tveid p.framer-text > span.framer-text:first-child{--framer-text-color:rgb(138,138,138)!important;color:rgb(138,138,138)!important}
+.framer-14tveid p.framer-text > span.framer-text:first-child *{color:rgb(138,138,138)!important}
 /* iOS/WebKit clips each animated letter (own layer via will-change) to its line box, so
    big type on a tight line-height (e.g. "hello" 105px on a 44px line) loses its top.
    Give every letter more paint room without moving it: padding out, equal negative margin back. */
