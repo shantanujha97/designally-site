@@ -69,7 +69,7 @@
   var BY_CARD = {};
   Object.keys(CASES).forEach(function (id) { BY_CARD[CASES[id].card] = id; });
 
-  var root, scroller, el = {}, lastFocus, isOpen = false;
+  var root, scroller, el = {}, lastFocus, isOpen = false, clearTimer;
 
   function h(tag, cls, text) {
     var n = document.createElement(tag);
@@ -156,6 +156,7 @@
     el.services.innerHTML = "";
     c.services.forEach(function (s) { el.services.appendChild(h("span", null, s)); });
     el.behance.href = c.url;
+    clearTimeout(clearTimer);
     el.stack.innerHTML = "";
     c.images.forEach(function (file, i) {
       var img = new Image();
@@ -189,6 +190,9 @@
     root.classList.remove("is-open");
     root.setAttribute("aria-hidden", "true");
     document.documentElement.classList.remove("cs-lock");
+    // drop the big case study images once the panel has faded out, so they don't sit in memory
+    clearTimeout(clearTimer);
+    clearTimer = setTimeout(function () { if (!isOpen) el.stack.innerHTML = ""; }, 500);
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
 
