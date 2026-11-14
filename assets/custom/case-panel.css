@@ -1,22 +1,21 @@
 /* Case study panel, laid out after itsjay.us:
    light page > top info bar + CTA > dark card with big title > meta card (year / services / summary) > stitched images */
 .cs-root{position:fixed;inset:0;z-index:2147483000;visibility:hidden;pointer-events:none;
-  background:#f4f4f4;transform-origin:50% 50%;will-change:transform,clip-path;
+  background:#f4f4f4;opacity:0;transition:opacity .3s cubic-bezier(.32,.72,0,1),visibility 0s linear .3s;
   --cs-ease:cubic-bezier(.16,1,.3,1);font-family:"SF Pro Text Medium","Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
-.cs-root.is-open,.cs-root.is-closing{visibility:visible}
-.cs-root.is-open{pointer-events:auto}
+.cs-root.is-open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .32s cubic-bezier(.32,.72,0,1)}
 
 .cs-scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 
-/* iOS-style opening (V2): the case study grows out of the card you tapped while the page sinks back.
-   Motion is driven from case-panel.js; content is simply visible inside the growing window. */
-.cs-rise,.cs-top,.cs-card{opacity:1;transform:none}
-
-/* the page behind recedes like the home screen behind an app */
-html.cs-recede{background:#0d0d0d!important}
-html.cs-recede body{background:transparent!important}
-#main.cs-page{transition:transform .6s cubic-bezier(.32,.72,0,1),filter .6s cubic-bezier(.32,.72,0,1);will-change:transform}
-html.cs-recede #main.cs-page{transform:scale(.93);filter:brightness(.7)}
+/* V3 opening: V1's motion (the case study fades up from 95% scale / 24px lower as one block)
+   with V2's Apple timing (iOS sheet curve, ~0.6s: quick start, soft settle). */
+.cs-rise{opacity:1;transform:none}
+.cs-top{opacity:0;transition:opacity .3s cubic-bezier(.32,.72,0,1)}
+.cs-root.is-open .cs-top{opacity:1;transition:opacity .4s cubic-bezier(.32,.72,0,1) .04s}
+.cs-card{opacity:0;transform:translateY(24px) scale(.95);transform-origin:50% 0;
+  transition:opacity .3s cubic-bezier(.32,.72,0,1),transform .45s cubic-bezier(.32,.72,0,1)}
+.cs-root.is-open .cs-card{opacity:1;transform:none;
+  transition:opacity .36s cubic-bezier(.32,.72,0,1) .04s,transform .62s cubic-bezier(.32,.72,0,1) .04s}
 
 /* top bar */
 .cs-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:22px 24px 0 24px;min-height:84px}
@@ -81,4 +80,4 @@ html.cs-lock,html.cs-lock body{overflow:hidden!important}
   .cs-stack{border-radius:10px;margin-top:10px}
   .cs-rise{transform:translateY(70px)}
 }
-@media (prefers-reduced-motion:reduce){#main.cs-page{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.cs-rise,.cs-root{transition:none!important;transform:none!important}}
