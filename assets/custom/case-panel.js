@@ -2,7 +2,7 @@
    (top info bar + CTA, big title, year/services/summary, then the Behance images stitched together). */
 (function () {
   var CDN = "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/";
-  var CTA_URL = "https://calendly.com/shantanuj/30-min-call";
+  var CTA_URL = "https://t.me/ShantanuJha97";
 
   var CASES = {
     "235649137": {
@@ -95,7 +95,9 @@
             '<div><b>Case study</b><span data-k="name"></span></div>' +
             '<div><b>Role</b><span data-k="role"></span></div>' +
           '</div>' +
-          '<div class="cs-actions"><a class="cs-cta" target="_blank" rel="noopener">Book a Call</a></div>' +
+          '<div class="cs-actions"><a class="cs-cta" target="_blank" rel="noopener">' +
+            '<span class="cs-ico" aria-hidden="true"><svg class="r" viewBox="0 0 256 256"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg><svg class="f" viewBox="0 0 256 256"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19ZM175.53,208,92.85,135.5l119-85.29Z"/></svg></span>' +
+            'Reach out on Telegram</a></div>' +
         '</div>' +
         '<section class="cs-card">' +
           '<h2 class="cs-title cs-rise cs-d2" id="cs-title"></h2>' +

@@ -24,8 +24,8 @@
 .framer-v126zp .framer-t6dk8r h1.framer-text span.framer-text *,
 .framer-1bbol5i .framer-1ofp3al h1.framer-text span.framer-text,
 .framer-1bbol5i .framer-1ofp3al h1.framer-text span.framer-text *{white-space:nowrap!important}
-/* tighter line spacing for the merged sentence (was 130%; now 112%) */
-.framer-v126zp h1.framer-text,.framer-1bbol5i h1.framer-text{--framer-line-height:1.12!important;line-height:1.12!important}
+/* tighter line spacing for the merged sentence (was 130%; now 106%) */
+.framer-v126zp h1.framer-text,.framer-1bbol5i h1.framer-text{--framer-line-height:1.064!important;line-height:1.064!important}
 /* full stop after "fast" takes the same grey as "fast" */
 .framer-14tveid h1.framer-text > span.framer-text:first-child{--framer-text-color:rgb(138,138,138)!important;color:rgb(138,138,138)!important}
 .framer-14tveid h1.framer-text > span.framer-text:first-child *{color:rgb(138,138,138)!important}

@@ -1,0 +1,30 @@
+/* ---- Telegram: header icon removed (the button now does that job) ---- */
+.framer-xov88w-container{display:none!important}
+
+/* ---- footer "Get to know me" fan: Telegram card removed, remaining cards re-centred ---- */
+.framer-syf2fh .framer-wsopz3,.framer-syf2fh .framer-q7wxq5,.framer-syf2fh .framer-l39ef2,.framer-13nsj20 .framer-1dqc6uc{display:none!important}
+.framer-syf2fh .framer-8q04jq,.framer-syf2fh .framer-1l6na1c,.framer-syf2fh .framer-vbjk7l{translate:-9vw 0}
+.framer-syf2fh .framer-1h0wo12,.framer-syf2fh .framer-1leenh9,.framer-syf2fh .framer-yykgal{translate:-9.75vw 0}
+.framer-syf2fh .framer-v3ucz1,.framer-syf2fh .framer-9biide,.framer-syf2fh .framer-19ralc0{translate:-10.05vw 0}
+.framer-13nsj20 .framer-v3bzjv,.framer-13nsj20 .framer-wgg1qv,.framer-13nsj20 .framer-142h06q{translate:-98.5px 0}
+
+/* ---- primary button: Telegram plane takes off a touch on hover ---- */
+.framer-GRZ3L .framer-1chgl3e-container,.framer-GRZ3L .framer-1hkb0p5-container{transition:translate .35s cubic-bezier(.16,1,.3,1)}
+.framer-GRZ3L:hover .framer-1chgl3e-container,.framer-GRZ3L:hover .framer-1hkb0p5-container{translate:2px -2px}
+
+/* ---- footer button ("Reach out on Telegram") with the same plane ---- */
+.framer-mIULI.framer-av2ux0{width:max-content!important;max-width:none!important;padding-left:24px!important;padding-right:28px!important}
+.framer-mIULI.framer-av2ux0::before{content:"";flex:none;width:18px;height:18px;background:rgb(27,12,38);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20d%3D%22M228.88%2C26.19a9%2C9%2C0%2C0%2C0-9.16-1.57L17.06%2C103.93a14.22%2C14.22%2C0%2C0%2C0%2C2.43%2C27.21L72%2C141.45V200a15.92%2C15.92%2C0%2C0%2C0%2C10%2C14.83%2C15.91%2C15.91%2C0%2C0%2C0%2C17.51-3.73l25.32-26.26L165%2C220a15.88%2C15.88%2C0%2C0%2C0%2C10.51%2C4%2C16.3%2C16.3%2C0%2C0%2C0%2C5-.79%2C15.85%2C15.85%2C0%2C0%2C0%2C10.67-11.63L231.77%2C35A9%2C9%2C0%2C0%2C0%2C228.88%2C26.19Zm-61.14%2C36L78.15%2C126.35l-49.6-9.73ZM88%2C200V152.52l24.79%2C21.74Zm87.53%2C8L92.85%2C135.5l119-85.29Z%22/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20d%3D%22M228.88%2C26.19a9%2C9%2C0%2C0%2C0-9.16-1.57L17.06%2C103.93a14.22%2C14.22%2C0%2C0%2C0%2C2.43%2C27.21L72%2C141.45V200a15.92%2C15.92%2C0%2C0%2C0%2C10%2C14.83%2C15.91%2C15.91%2C0%2C0%2C0%2C17.51-3.73l25.32-26.26L165%2C220a15.88%2C15.88%2C0%2C0%2C0%2C10.51%2C4%2C16.3%2C16.3%2C0%2C0%2C0%2C5-.79%2C15.85%2C15.85%2C0%2C0%2C0%2C10.67-11.63L231.77%2C35A9%2C9%2C0%2C0%2C0%2C228.88%2C26.19Zm-61.14%2C36L78.15%2C126.35l-49.6-9.73ZM88%2C200V152.52l24.79%2C21.74Zm87.53%2C8L92.85%2C135.5l119-85.29Z%22/%3E%3C/svg%3E") center/contain no-repeat;transition:translate .35s cubic-bezier(.16,1,.3,1)}
+.framer-mIULI.framer-av2ux0:hover::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20d%3D%22M228.88%2C26.19a9%2C9%2C0%2C0%2C0-9.16-1.57L17.06%2C103.93a14.22%2C14.22%2C0%2C0%2C0%2C2.43%2C27.21L72%2C141.45V200a15.92%2C15.92%2C0%2C0%2C0%2C10%2C14.83%2C15.91%2C15.91%2C0%2C0%2C0%2C17.51-3.73l25.32-26.26L165%2C220a15.88%2C15.88%2C0%2C0%2C0%2C10.51%2C4%2C16.3%2C16.3%2C0%2C0%2C0%2C5-.79%2C15.85%2C15.85%2C0%2C0%2C0%2C10.67-11.63L231.77%2C35A9%2C9%2C0%2C0%2C0%2C228.88%2C26.19ZM175.53%2C208%2C92.85%2C135.5l119-85.29Z%22/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20d%3D%22M228.88%2C26.19a9%2C9%2C0%2C0%2C0-9.16-1.57L17.06%2C103.93a14.22%2C14.22%2C0%2C0%2C0%2C2.43%2C27.21L72%2C141.45V200a15.92%2C15.92%2C0%2C0%2C0%2C10%2C14.83%2C15.91%2C15.91%2C0%2C0%2C0%2C17.51-3.73l25.32-26.26L165%2C220a15.88%2C15.88%2C0%2C0%2C0%2C10.51%2C4%2C16.3%2C16.3%2C0%2C0%2C0%2C5-.79%2C15.85%2C15.85%2C0%2C0%2C0%2C10.67-11.63L231.77%2C35A9%2C9%2C0%2C0%2C0%2C228.88%2C26.19ZM175.53%2C208%2C92.85%2C135.5l119-85.29Z%22/%3E%3C/svg%3E");translate:2px -2px}
+
+/* ---- "Reach out on Telegram" is longer than "Book a Call": widen the button and its fixed-width wrappers ---- */
+.framer-16heeqm,.framer-19v395w-container,.framer-xrnf0c,.framer-1cp1acw-container{width:254px!important}
+.framer-GRZ3L.framer-1kz8di2{width:100%!important}
+@media (max-width:809.98px){ /* phones: the header has ~190px for the button, so it reads "Telegram" there */
+  .framer-16heeqm,.framer-19v395w-container{width:150px!important}
+  .framer-19v395w-container .framer-GRZ3L.framer-1kz8di2{padding-left:18px!important;padding-right:20px!important;gap:8px!important}
+  .framer-19v395w-container .framer-GRZ3L .framer-1pgqzhs{display:none!important}
+  .framer-19v395w-container .framer-GRZ3L::before{content:"Telegram";order:2;position:static;flex:none;color:#fff;font:400 16px/28px Geist,"Geist Placeholder",sans-serif;letter-spacing:-.32px;white-space:nowrap}
+}
+@media (max-width:374px){ .framer-lxS4O.framer-1p1gy4f{gap:16px!important} } /* very small phones */
