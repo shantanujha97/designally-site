@@ -17,7 +17,3 @@
 
 /* ---- footer icon row (one picture): Telegram glyph removed, picture narrowed to match ---- */
 .framer-15l1ydp{width:114px!important}
-
-/* Hide "Coming Soon" case-study buttons (Strata, GenieDex) */
-[class*="-container"]:has(> .framer-VVWcD.framer-v-1gpqr80){display:none!important}
-.framer-VVWcD.framer-v-1gpqr80{display:none!important}
