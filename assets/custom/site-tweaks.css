@@ -28,3 +28,6 @@
   .framer-19v395w-container .framer-GRZ3L::before{content:"Telegram";order:2;position:static;flex:none;color:#fff;font:400 16px/28px Geist,"Geist Placeholder",sans-serif;letter-spacing:-.32px;white-space:nowrap}
 }
 @media (max-width:374px){ .framer-lxS4O.framer-1p1gy4f{gap:16px!important} } /* very small phones */
+
+/* ---- footer icon row (one picture): Telegram glyph removed, picture narrowed to match ---- */
+.framer-15l1ydp{width:114px!important}
