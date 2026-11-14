@@ -166,7 +166,73 @@
     if (L && L.main && L.main.start) { try { L.main.start(); } catch (e) {} }
   }
 
-  function open(id) {
+  // --- iOS-style motion (V2) ------------------------------------------------------------
+  // The case study grows out of the tapped card (uniform scale + crop, like an app opening from
+  // its icon) while the page sinks back and dims. Closing reverses it into the same card.
+  var IOS = "cubic-bezier(.32,.72,0,1)", OPEN_MS = 620, CLOSE_MS = 520;
+  var reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var originRect = null, motionTimer;
+
+  function cardRectFor(target, id) {
+    var n = target, title = CASES[id] && CASES[id].card;
+    for (var i = 0; i < 16 && n && n !== document.body; i++, n = n.parentElement) {
+      var r = n.getBoundingClientRect();
+      if (r.height > 180 && r.width > 200 && /View Case Study/.test(n.textContent) && n.textContent.indexOf(title) > -1) return r;
+    }
+    var a = target.closest && target.closest("a");
+    return a ? a.getBoundingClientRect() : null;
+  }
+  // transform + crop that make the full-screen panel sit exactly over rect r
+  function shrinkTo(r) {
+    var vw = window.innerWidth, vh = window.innerHeight;
+    if (!r || r.width < 20 || r.height < 20) r = { left: vw * 0.2, top: vh * 0.2, width: vw * 0.6, height: vh * 0.6 };
+    var s = Math.max(r.width / vw, r.height / vh);
+    var dx = r.left + r.width / 2 - vw / 2, dy = r.top + r.height / 2 - vh / 2;
+    var ix = Math.max(0, (vw - r.width / s) / 2), iy = Math.max(0, (vh - r.height / s) / 2);
+    return {
+      transform: "translate(" + dx + "px," + dy + "px) scale(" + s + ")",
+      clip: "inset(" + iy + "px " + ix + "px " + iy + "px " + ix + "px round " + (24 / s) + "px)"
+    };
+  }
+  function setMotion(transform, clip, ms, opacity, opacityMs, opacityDelay) {
+    root.style.transition = ms ? ("transform " + ms + "ms " + IOS + ",clip-path " + ms + "ms " + IOS +
+      ",opacity " + opacityMs + "ms ease " + (opacityDelay || 0) + "ms") : "none";
+    root.style.transform = transform;
+    root.style.clipPath = clip;
+    root.style.opacity = opacity;
+  }
+
+  // page recedes in depth behind the case study
+  var main = document.getElementById("main"), fixedEls = [], cleanupTimer;
+  function recede() {
+    if (!main) return;
+    clearTimeout(cleanupTimer);
+    var y = window.scrollY, vh = window.innerHeight, docH = main.scrollHeight;
+    // fixed elements inside #main would jump once it is transformed: pin them to the viewport
+    fixedEls = [];
+    main.querySelectorAll("*").forEach(function (n) {
+      if (getComputedStyle(n).position === "fixed") { fixedEls.push(n); n.style.translate = "0 " + y + "px"; }
+    });
+    main.classList.add("cs-page");
+    main.style.transformOrigin = "50% " + (y + vh / 2) + "px";
+    main.style.clipPath = "inset(" + y + "px 0 " + Math.max(0, docH - y - vh) + "px 0 round 22px)";
+    main.getBoundingClientRect();
+    document.documentElement.classList.add("cs-recede");
+  }
+  function restore() {
+    if (!main) return;
+    document.documentElement.classList.remove("cs-recede");
+    clearTimeout(cleanupTimer);
+    cleanupTimer = setTimeout(function () {
+      main.classList.remove("cs-page");
+      main.style.transformOrigin = "";
+      main.style.clipPath = "";
+      fixedEls.forEach(function (n) { n.style.translate = ""; });
+      fixedEls = [];
+    }, 650);
+  }
+
+  function open(id, target) {
     var c = CASES[id];
     if (!c) return false;
     if (!root) build();
@@ -199,11 +265,24 @@
     lastFocus = document.activeElement;
     document.documentElement.classList.add("cs-lock");
     root.setAttribute("aria-hidden", "false");
-    root.getBoundingClientRect(); // commit start state so the reveal animates
-    requestAnimationFrame(function () {
+    clearTimeout(motionTimer);
+    root.classList.remove("is-closing");
+    originRect = target ? cardRectFor(target, id) : null;
+    if (reduceMotion) {
+      setMotion("none", "none", 0, 1);
+    } else {
+      var from = shrinkTo(originRect);
+      setMotion(from.transform, from.clip, 0, 0);       // start: sitting on top of the card
       root.classList.add("is-open");
-      el.close.focus({ preventScroll: true });
-    });
+      root.getBoundingClientRect();
+      recede();
+      requestAnimationFrame(function () {               // grow to full screen
+        setMotion("none", "inset(0px 0px 0px 0px round 0px)", OPEN_MS, 1, 180, 0);
+      });
+      motionTimer = setTimeout(function () { setMotion("none", "none", 0, 1); }, OPEN_MS + 60);
+    }
+    root.classList.add("is-open");
+    el.close.focus({ preventScroll: true });
     isOpen = true;
     return true;
   }
@@ -214,6 +293,22 @@
     root.classList.remove("is-open");
     root.setAttribute("aria-hidden", "true");
     stopSmooth();
+    clearTimeout(motionTimer);
+    if (reduceMotion) {
+      setMotion("none", "none", 0, 0);
+    } else {
+      // shrink back into the card the case study came from, page comes forward
+      root.classList.add("is-closing");
+      setMotion("none", "inset(0px 0px 0px 0px round 0px)", 0, 1);
+      root.getBoundingClientRect();
+      var to = shrinkTo(originRect);
+      setMotion(to.transform, to.clip, CLOSE_MS, 0, 200, CLOSE_MS - 200);
+      restore();
+      motionTimer = setTimeout(function () {
+        root.classList.remove("is-closing");
+        setMotion("none", "none", 0, 0);
+      }, CLOSE_MS + 40);
+    }
     document.documentElement.classList.remove("cs-lock");
     // drop the big case study images once the panel has faded out, so they don't sit in memory
     clearTimeout(clearTimer);
@@ -263,7 +358,7 @@
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if (root && root.contains(e.target)) return;
     var id = caseFor(e.target);
-    if (id && open(id)) {
+    if (id && open(id, e.target)) {
       e.preventDefault();
       e.stopPropagation();
     }
