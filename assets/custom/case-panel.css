@@ -3,19 +3,19 @@
 .cs-root{position:fixed;inset:0;z-index:2147483000;visibility:hidden;pointer-events:none;
   background:#f4f4f4;opacity:0;transition:opacity .25s ease,visibility 0s linear .25s;
   --cs-ease:cubic-bezier(.16,1,.3,1);font-family:"SF Pro Text Medium","Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
-.cs-root.is-open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .25s ease}
+.cs-root.is-open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .4s ease}
 
 .cs-scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 
-/* opening, timed like the reference (itsjay.us): the page swaps in, then the whole case study
-   fades up from 95% scale / 24px lower in ~1s with an expo ease-out. No per-section stagger. */
+/* opening, paced like the reference (itsjay.us): the page swaps in (0.4s), a short beat, then the whole
+   case study fades up from 95% scale / 24px lower over ~1.6s. Settled ~2.1s after the click. */
 .cs-rise{opacity:1;transform:none}
 .cs-top{opacity:0;transition:opacity .25s ease}
-.cs-root.is-open .cs-top{opacity:1;transition:opacity .35s ease .1s}
+.cs-root.is-open .cs-top{opacity:1;transition:opacity .5s ease .15s}
 .cs-card{opacity:0;transform:translateY(24px) scale(.95);transform-origin:50% 0;
   transition:opacity .25s ease,transform .25s ease}
 .cs-root.is-open .cs-card{opacity:1;transform:none;
-  transition:opacity 1s cubic-bezier(.16,1,.3,1) .12s,transform 1s cubic-bezier(.16,1,.3,1) .12s}
+  transition:opacity 1.4s cubic-bezier(.22,1,.36,1) .55s,transform 1.6s cubic-bezier(.22,1,.36,1) .55s}
 
 /* top bar */
 .cs-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:22px 24px 0 24px;min-height:84px}
