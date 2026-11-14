@@ -30,10 +30,8 @@
 .cs-cta:hover{background:rgb(240,56,0);box-shadow:0 10px 30px -6px rgba(240,56,0,.45)}
 .cs-ico{position:relative;width:18px;height:18px;flex:none;transition:translate .35s cubic-bezier(.16,1,.3,1)}
 .cs-ico svg{position:absolute;inset:0;width:100%;height:100%;fill:currentColor;transition:opacity .2s ease}
-.cs-ico .f{opacity:0}
+.cs-ico .r{opacity:0}
 .cs-cta:hover .cs-ico{translate:2px -2px}
-.cs-cta:hover .cs-ico .r{opacity:0}
-.cs-cta:hover .cs-ico .f{opacity:1}
 .cs-close{position:fixed;top:22px;right:24px;z-index:3;appearance:none;border:0;cursor:pointer;width:48px;height:48px;border-radius:999px;
   background:#151515;color:#fff;display:grid;place-items:center;box-shadow:0 6px 24px rgba(0,0,0,.18);
   transition:transform .3s var(--cs-ease),background .2s ease}
