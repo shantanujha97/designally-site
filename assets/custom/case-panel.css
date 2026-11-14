@@ -1,46 +1,78 @@
-/* Case study panel — slides up over the page, Behance images stitched with no gaps */
-.cs-root{position:fixed;inset:0;z-index:2147483000;pointer-events:none;visibility:hidden}
-.cs-root.is-open{pointer-events:auto;visibility:visible}
-.cs-backdrop{position:absolute;inset:0;background:rgba(10,10,10,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .45s ease}
-.cs-root.is-open .cs-backdrop{opacity:1}
+/* Case study panel, laid out after itsjay.us:
+   light page > top info bar + CTA > dark card with big title > meta card (year / services / summary) > stitched images */
+.cs-root{position:fixed;inset:0;z-index:2147483000;visibility:hidden;pointer-events:none;
+  background:#f4f4f4;opacity:0;transition:opacity .35s ease,visibility 0s linear .35s;
+  --cs-ease:cubic-bezier(.16,1,.3,1);font-family:"SF Pro Text Medium","Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+.cs-root.is-open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .35s ease}
 
-.cs-sheet{position:absolute;left:12px;right:12px;top:16px;bottom:0;background:#111;color:#f2f2f2;
-  border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;
-  transform:translateY(105%);transition:transform .6s cubic-bezier(.22,1,.36,1);box-shadow:0 -20px 60px rgba(0,0,0,.25)}
-.cs-root.is-open .cs-sheet{transform:translateY(0)}
+.cs-scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 
-.cs-scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+/* reveal: each block rises + fades, staggered */
+.cs-rise{opacity:0;transform:translateY(120px);transition:opacity .9s var(--cs-ease),transform 1s var(--cs-ease)}
+.cs-root.is-open .cs-rise{opacity:1;transform:none}
+.cs-root.is-open .cs-d1{transition-delay:.05s}
+.cs-root.is-open .cs-d2{transition-delay:.14s}
+.cs-root.is-open .cs-d3{transition-delay:.24s}
+.cs-root.is-open .cs-d4{transition-delay:.34s}
+.cs-root:not(.is-open) .cs-rise{transition-duration:.25s;transition-delay:0s}
 
-.cs-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:14px 16px 14px 24px;background:linear-gradient(#111 70%,rgba(17,17,17,0))}
-.cs-label{font:500 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
-.cs-close{appearance:none;border:0;cursor:pointer;width:40px;height:40px;border-radius:999px;background:#262626;color:#fff;
-  display:grid;place-items:center;transition:background .2s ease,transform .2s ease}
-.cs-close:hover{background:#3a3a3a;transform:rotate(90deg)}
+/* top bar */
+.cs-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:22px 24px 0 24px;min-height:84px}
+.cs-info{display:flex;gap:clamp(24px,8vw,120px)}
+.cs-info div{display:flex;flex-direction:column;gap:2px;font-size:15px;line-height:1.35;letter-spacing:-.01em}
+.cs-info b{font-weight:500;color:#111}
+.cs-info span{color:#8d8d8d}
+.cs-actions{display:flex;align-items:center;gap:8px;padding-right:56px}
+.cs-cta{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;background:#151515;color:#fff;
+  text-decoration:none;font-size:15px;font-weight:500;letter-spacing:-.01em;transition:transform .25s var(--cs-ease),background .2s ease}
+.cs-cta:hover{background:#000;transform:translateY(-1px)}
+.cs-close{position:fixed;top:22px;right:24px;z-index:3;appearance:none;border:0;cursor:pointer;width:48px;height:48px;border-radius:999px;
+  background:#151515;color:#fff;display:grid;place-items:center;box-shadow:0 6px 24px rgba(0,0,0,.18);
+  transition:transform .3s var(--cs-ease),background .2s ease}
+.cs-close:hover{background:#000;transform:rotate(90deg)}
 .cs-close svg{width:16px;height:16px}
 
-.cs-head{max-width:1200px;margin:0 auto;padding:24px 24px 40px;text-align:center}
-.cs-title{margin:0;font-family:"SF Pro Text Medium","Inter",-apple-system,BlinkMacSystemFont,sans-serif;font-weight:500;
-  font-size:clamp(40px,8vw,112px);line-height:1;letter-spacing:-.05em;color:#fff}
-.cs-sub{margin:18px auto 0;max-width:640px;font:400 16px/1.5 -apple-system,BlinkMacSystemFont,"Inter",sans-serif;color:#9a9a9a}
+/* dark card */
+.cs-card{margin:44px 12px 12px;background:#161616;border-radius:28px;padding:0 20px 20px;color:#f4f4f4}
+.cs-title{margin:0;padding:clamp(72px,12vw,150px) 0 clamp(64px,10vw,130px);text-align:center;color:#f4f4f4;
+  font-family:"Helvetica Neue","SF Pro Display","Inter",-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;
+  text-transform:uppercase;letter-spacing:-.045em;line-height:.9;font-size:clamp(48px,10.5vw,176px);overflow-wrap:anywhere}
 
-.cs-images{max-width:1400px;margin:0 auto;padding:0 24px;}
-.cs-stack{border-radius:16px;overflow:hidden;background:#1a1a1a}
+/* meta card */
+.cs-meta{background:#262626;border-radius:18px;padding:32px;display:grid;grid-template-columns:minmax(140px,.7fr) 1.6fr 1.5fr;gap:32px 40px}
+.cs-lbl{display:block;margin-bottom:12px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#9a9a9a}
+.cs-year{font-size:clamp(44px,5vw,68px);line-height:1;font-weight:600;letter-spacing:-.05em;color:#fafafa}
+.cs-role{margin-top:22px;font-size:16px;color:#e9e9e9}
+.cs-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cs-chips span{display:inline-block;padding:9px 12px;border-radius:7px;background:#363636;color:#f0f0f0;font-size:13px;line-height:1;
+  letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+.cs-sum{margin:0;font-size:17px;line-height:1.45;color:#ededed;letter-spacing:-.01em}
+
+/* images */
+.cs-stack{margin-top:20px;border-radius:16px;overflow:hidden;background:#1d1d1d}
 .cs-stack img{display:block;width:100%;height:auto;margin:0;border:0}
-.cs-stack img.is-loading{min-height:40vh;background:#1a1a1a}
+.cs-stack img.is-loading{min-height:50vh;background:#1d1d1d}
 
-.cs-foot{display:flex;justify-content:center;padding:40px 24px 56px}
-.cs-behance{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:#fff;color:#111;
-  text-decoration:none;font:500 14px/1 -apple-system,BlinkMacSystemFont,"Inter",sans-serif}
-.cs-behance:hover{background:#e8e8e8}
+.cs-foot{display:flex;justify-content:center;padding:36px 0 20px}
+.cs-behance{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;background:#f4f4f4;color:#111;
+  text-decoration:none;font-size:15px;font-weight:500}
+.cs-behance:hover{background:#fff}
 
 html.cs-lock,html.cs-lock body{overflow:hidden!important}
 
-@media (max-width:809.98px){
-  .cs-sheet{left:0;right:0;top:10px;border-radius:18px 18px 0 0}
-  .cs-head{padding:8px 16px 28px}
-  .cs-images{padding:0 10px}
-  .cs-stack{border-radius:10px}
-  .cs-bar{padding:10px 10px 10px 16px}
+@media (max-width:999.98px){
+  .cs-meta{grid-template-columns:1fr;gap:30px}
 }
-@media (prefers-reduced-motion:reduce){.cs-sheet,.cs-backdrop{transition:none}}
+@media (max-width:809.98px){
+  .cs-top{padding:16px 16px 0;min-height:72px;flex-direction:column;gap:14px}
+  .cs-info{gap:28px}
+  .cs-info div{font-size:14px}
+  .cs-actions{padding-right:0}
+  .cs-cta{height:42px;padding:0 18px;font-size:14px}
+  .cs-close{top:14px;right:14px;width:42px;height:42px}
+  .cs-card{margin:24px 6px 6px;border-radius:20px;padding:0 10px 10px}
+  .cs-meta{padding:22px;border-radius:14px}
+  .cs-stack{border-radius:10px;margin-top:10px}
+  .cs-rise{transform:translateY(70px)}
+}
+@media (prefers-reduced-motion:reduce){.cs-rise,.cs-root{transition:none!important;transform:none!important}}
