@@ -29,3 +29,7 @@
 /* full stop after "fast" takes the same grey as "fast" */
 .framer-14tveid h1.framer-text > span.framer-text:first-child{--framer-text-color:rgb(138,138,138)!important;color:rgb(138,138,138)!important}
 .framer-14tveid h1.framer-text > span.framer-text:first-child *{color:rgb(138,138,138)!important}
+/* iOS/WebKit clips each animated letter (own layer via will-change) to its line box, so
+   big type on a tight line-height (e.g. "hello" 105px on a 44px line) loses its top.
+   Give every letter more paint room without moving it: padding out, equal negative margin back. */
+.framer-text span[style*="will-change"]{padding-top:.5em;padding-bottom:.5em;margin-top:-.5em;margin-bottom:-.5em}
