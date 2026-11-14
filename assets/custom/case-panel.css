@@ -1,33 +1,20 @@
 /* Case study panel, laid out after itsjay.us:
    light page > top info bar + CTA > dark card with big title > meta card (year / services / summary) > stitched images */
 .cs-root{position:fixed;inset:0;z-index:2147483000;visibility:hidden;pointer-events:none;
-  --cs-ease:cubic-bezier(.32,.72,0,1);--cs-rise:cubic-bezier(.16,1,.3,1);
-  font-family:"SF Pro Text Medium","Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
-  transition:visibility 0s linear .6s}
-.cs-root.is-open{visibility:visible;pointer-events:auto;transition:none}
-.cs-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.28);opacity:0;transition:opacity .6s ease}
-.cs-root.is-open .cs-backdrop{opacity:1}
+  background:#f4f4f4;opacity:0;transition:opacity .35s ease,visibility 0s linear .35s;
+  --cs-ease:cubic-bezier(.16,1,.3,1);font-family:"SF Pro Text Medium","Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+.cs-root.is-open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .35s ease}
 
-/* the drawer */
-.cs-sheet{position:absolute;left:0;right:0;bottom:0;top:calc(4vh + 22px);background:#f4f4f4;border-radius:24px 24px 0 0;
-  overflow:hidden;transform:translate3d(0,100%,0);box-shadow:0 -12px 50px rgba(0,0,0,.28);
-  transition:transform .55s cubic-bezier(.4,0,.6,1)}
-.cs-root.is-open .cs-sheet{transform:translate3d(0,0,0);transition:transform .8s var(--cs-ease) .06s}
 .cs-scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 
-/* the page behind recedes in depth */
-html.cs-recede{background:#0e0e0e!important}
-html.cs-recede body{background:transparent!important}
-#main.cs-page{transition:transform .8s var(--cs-page-ease,cubic-bezier(.32,.72,0,1)),filter .8s ease;will-change:transform}
-html.cs-recede #main.cs-page{transform:scale(.92);filter:brightness(.72)}
-
-/* content inside the drawer rises in, staggered, once the drawer is mostly up */
-.cs-rise{opacity:0;transform:translateY(60px);transition:opacity .3s ease,transform .3s ease}
-.cs-root.is-open .cs-rise{opacity:1;transform:none;transition:opacity .8s var(--cs-rise),transform .9s var(--cs-rise)}
-.cs-root.is-open .cs-d1{transition-delay:.22s}
-.cs-root.is-open .cs-d2{transition-delay:.3s}
-.cs-root.is-open .cs-d3{transition-delay:.38s}
-.cs-root.is-open .cs-d4{transition-delay:.46s}
+/* reveal: each block rises + fades, staggered */
+.cs-rise{opacity:0;transform:translateY(120px);transition:opacity .9s var(--cs-ease),transform 1s var(--cs-ease)}
+.cs-root.is-open .cs-rise{opacity:1;transform:none}
+.cs-root.is-open .cs-d1{transition-delay:.05s}
+.cs-root.is-open .cs-d2{transition-delay:.14s}
+.cs-root.is-open .cs-d3{transition-delay:.24s}
+.cs-root.is-open .cs-d4{transition-delay:.34s}
+.cs-root:not(.is-open) .cs-rise{transition-duration:.25s;transition-delay:0s}
 
 /* top bar */
 .cs-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:22px 24px 0 24px;min-height:84px}
@@ -39,7 +26,7 @@ html.cs-recede #main.cs-page{transform:scale(.92);filter:brightness(.72)}
 .cs-cta{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;background:#151515;color:#fff;
   text-decoration:none;font-size:15px;font-weight:500;letter-spacing:-.01em;transition:transform .25s var(--cs-ease),background .2s ease}
 .cs-cta:hover{background:#000;transform:translateY(-1px)}
-.cs-close{position:absolute;top:22px;right:24px;z-index:3;appearance:none;border:0;cursor:pointer;width:48px;height:48px;border-radius:999px;
+.cs-close{position:fixed;top:22px;right:24px;z-index:3;appearance:none;border:0;cursor:pointer;width:48px;height:48px;border-radius:999px;
   background:#151515;color:#fff;display:grid;place-items:center;box-shadow:0 6px 24px rgba(0,0,0,.18);
   transition:transform .3s var(--cs-ease),background .2s ease}
 .cs-close:hover{background:#000;transform:rotate(90deg)}
@@ -83,10 +70,9 @@ html.cs-lock,html.cs-lock body{overflow:hidden!important}
   .cs-actions{padding-right:0}
   .cs-cta{height:42px;padding:0 18px;font-size:14px}
   .cs-close{top:14px;right:14px;width:42px;height:42px}
-  .cs-sheet{top:calc(3vh + 14px);border-radius:18px 18px 0 0}
   .cs-card{margin:24px 6px 6px;border-radius:20px;padding:0 10px 10px}
   .cs-meta{padding:22px;border-radius:14px}
   .cs-stack{border-radius:10px;margin-top:10px}
-  .cs-rise{transform:translateY(40px)}
+  .cs-rise{transform:translateY(70px)}
 }
-@media (prefers-reduced-motion:reduce){.cs-rise,.cs-sheet,#main.cs-page{transition:none!important}.cs-rise{transform:none!important}}
+@media (prefers-reduced-motion:reduce){.cs-rise,.cs-root{transition:none!important;transform:none!important}}

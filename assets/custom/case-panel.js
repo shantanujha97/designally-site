@@ -69,7 +69,7 @@
   var BY_CARD = {};
   Object.keys(CASES).forEach(function (id) { BY_CARD[CASES[id].card] = id; });
 
-  var root, scroller, el = {}, lastFocus, isOpen = false, unlockTimer;
+  var root, scroller, el = {}, lastFocus, isOpen = false;
 
   function h(tag, cls, text) {
     var n = document.createElement(tag);
@@ -86,7 +86,6 @@
     root.setAttribute("aria-modal", "true");
     root.setAttribute("aria-labelledby", "cs-title");
     root.innerHTML =
-      '<div class="cs-backdrop"></div><div class="cs-sheet">' +
       '<button class="cs-close" type="button" aria-label="Close case study">' +
         '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>' +
       '</button>' +
@@ -108,7 +107,7 @@
           '<div class="cs-rise cs-d4"><div class="cs-stack"></div>' +
           '<div class="cs-foot"><a class="cs-behance" target="_blank" rel="noopener">View on Behance ↗</a></div></div>' +
         '</section>' +
-      '</div></div>';
+      '</div>';
     document.body.appendChild(root);
     scroller = root.querySelector(".cs-scroll");
     el.close = root.querySelector(".cs-close");
@@ -120,7 +119,6 @@
     el.cta.href = CTA_URL;
 
     el.close.addEventListener("click", close);
-    root.querySelector(".cs-backdrop").addEventListener("click", close);
     document.addEventListener("keydown", function (e) {
       if (!isOpen) return;
       if (e.key === "Escape") close();
@@ -131,36 +129,6 @@
         else if (!e.shiftKey && (i === f.length - 1 || i === -1)) { e.preventDefault(); f[0].focus(); }
       }
     });
-  }
-
-  // --- page recedes in depth behind the drawer -------------------------------
-  var main = document.getElementById("main"), fixedEls = [], cleanupTimer;
-  function recede() {
-    if (!main) return;
-    clearTimeout(cleanupTimer);
-    var y = window.scrollY, vh = window.innerHeight, docH = main.scrollHeight;
-    // fixed elements inside #main would jump once it is transformed: pin them to the viewport
-    fixedEls = [];
-    main.querySelectorAll("*").forEach(function (n) {
-      if (getComputedStyle(n).position === "fixed") { fixedEls.push(n); n.style.translate = "0 " + y + "px"; }
-    });
-    main.classList.add("cs-page");
-    main.style.transformOrigin = "50% " + (y + vh / 2) + "px";
-    main.style.clipPath = "inset(" + y + "px 0 " + Math.max(0, docH - y - vh) + "px 0 round 22px)";
-    main.getBoundingClientRect();
-    document.documentElement.classList.add("cs-recede");
-  }
-  function restore() {
-    if (!main) return;
-    document.documentElement.classList.remove("cs-recede");
-    clearTimeout(cleanupTimer);
-    cleanupTimer = setTimeout(function () {
-      main.classList.remove("cs-page");
-      main.style.transformOrigin = "";
-      main.style.clipPath = "";
-      fixedEls.forEach(function (n) { n.style.translate = ""; });
-      fixedEls = [];
-    }, 850);
   }
 
   // shrink the big title until it fits on one line
@@ -204,11 +172,9 @@
     });
     scroller.scrollTop = 0;
     lastFocus = document.activeElement;
-    clearTimeout(unlockTimer);
     document.documentElement.classList.add("cs-lock");
     root.setAttribute("aria-hidden", "false");
     root.getBoundingClientRect(); // commit start state so the reveal animates
-    recede();
     requestAnimationFrame(function () {
       root.classList.add("is-open");
       el.close.focus({ preventScroll: true });
@@ -222,8 +188,7 @@
     isOpen = false;
     root.classList.remove("is-open");
     root.setAttribute("aria-hidden", "true");
-    restore();
-    unlockTimer = setTimeout(function () { document.documentElement.classList.remove("cs-lock"); }, 600);
+    document.documentElement.classList.remove("cs-lock");
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
 
