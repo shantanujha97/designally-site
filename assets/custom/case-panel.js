@@ -80,7 +80,6 @@
 
   function build() {
     root = h("div", "cs-root");
-    root.setAttribute("data-lenis-prevent", "");
     root.setAttribute("aria-hidden", "true");
     root.setAttribute("role", "dialog");
     root.setAttribute("aria-modal", "true");
@@ -89,14 +88,14 @@
       '<button class="cs-close" type="button" aria-label="Close case study">' +
         '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>' +
       '</button>' +
-      '<div class="cs-scroll">' +
+      '<div class="cs-scroll"><div class="cs-inner">' +
         '<div class="cs-top cs-rise cs-d1">' +
           '<div class="cs-info">' +
             '<div><b>Case study</b><span data-k="name"></span></div>' +
             '<div><b>Role</b><span data-k="role"></span></div>' +
           '</div>' +
           '<div class="cs-actions"><a class="cs-cta" target="_blank" rel="noopener">' +
-            '<span class="cs-ico" aria-hidden="true"><svg class="r" viewBox="0 0 256 256"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19Zm-61.14,36L78.15,126.35l-49.6-9.73ZM88,200V152.52l24.79,21.74Zm87.53,8L92.85,135.5l119-85.29Z"/></svg><svg class="f" viewBox="0 0 256 256"><path d="M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19ZM175.53,208,92.85,135.5l119-85.29Z"/></svg></span>' +
+            '<span class="cs-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span>' +
             'Let’s chat</a></div>' +
         '</div>' +
         '<section class="cs-card">' +
@@ -109,9 +108,11 @@
           '<div class="cs-rise cs-d4"><div class="cs-stack"></div>' +
           '<div class="cs-foot"><a class="cs-behance" target="_blank" rel="noopener">View on Behance ↗</a></div></div>' +
         '</section>' +
-      '</div>';
+      '</div></div>';
     document.body.appendChild(root);
     scroller = root.querySelector(".cs-scroll");
+    // Without the site's Lenis (shouldn't happen) fall back to native scrolling inside the panel.
+    if (!globalThis.__daLenis) root.setAttribute("data-lenis-prevent", "");
     el.close = root.querySelector(".cs-close");
     el.cta = root.querySelector(".cs-cta");
     el.title = root.querySelector(".cs-title");
@@ -145,6 +146,26 @@
   }
   window.addEventListener("resize", function () { if (isOpen) fitTitle(); });
 
+  // --- same smooth scroll as the rest of the site: the site's own Lenis, same settings ---
+  var panelLenis = null, lenisRaf = 0;
+  function startSmooth() {
+    var L = globalThis.__daLenis;
+    if (!L || !L.Lenis) return;
+    try {
+      if (L.main && L.main.stop) L.main.stop();
+      panelLenis = new L.Lenis(Object.assign({}, L.options, { wrapper: scroller, content: scroller.firstElementChild }));
+      panelLenis.scrollTo(0, { immediate: true });
+      var loop = function (t) { if (!panelLenis) return; panelLenis.raf(t); lenisRaf = requestAnimationFrame(loop); };
+      lenisRaf = requestAnimationFrame(loop);
+    } catch (e) { panelLenis = null; }
+  }
+  function stopSmooth() {
+    cancelAnimationFrame(lenisRaf);
+    if (panelLenis) { try { panelLenis.destroy(); } catch (e) {} panelLenis = null; }
+    var L = globalThis.__daLenis;
+    if (L && L.main && L.main.start) { try { L.main.start(); } catch (e) {} }
+  }
+
   function open(id) {
     var c = CASES[id];
     if (!c) return false;
@@ -174,6 +195,7 @@
       el.stack.appendChild(img);
     });
     scroller.scrollTop = 0;
+    startSmooth();
     lastFocus = document.activeElement;
     document.documentElement.classList.add("cs-lock");
     root.setAttribute("aria-hidden", "false");
@@ -191,6 +213,7 @@
     isOpen = false;
     root.classList.remove("is-open");
     root.setAttribute("aria-hidden", "true");
+    stopSmooth();
     document.documentElement.classList.remove("cs-lock");
     // drop the big case study images once the panel has faded out, so they don't sit in memory
     clearTimeout(clearTimer);
