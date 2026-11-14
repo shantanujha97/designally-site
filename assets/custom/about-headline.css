@@ -33,3 +33,7 @@
    big type on a tight line-height (e.g. "hello" 105px on a 44px line) loses its top.
    Give every letter more paint room without moving it: padding out, equal negative margin back. */
 .framer-text span[style*="will-change"]{padding-top:.5em;padding-bottom:.5em;margin-top:-.5em;margin-bottom:-.5em}
+/* "hello" (Borel, 105px on a 44px line): Safari clips each animated letter to its own line box,
+   so give the letters a line tall enough for the whole glyph and cancel the extra height with
+   equal negative margins. Letters stay exactly where they were. */
+.framer-11s4ibc span[style*="will-change"]{line-height:2.2em!important;padding-top:0;padding-bottom:0;margin-top:calc((44px - 2.2em) / 2);margin-bottom:calc((44px - 2.2em) / 2)}
